@@ -21,8 +21,8 @@ function* rootSaga() {
 // this will retrieve and set dat from the database
 function* fetchMvDetails(movieId) {
     try {
-        const movieDetails = yield axios.get(`/api/genre/details/${movieId.payload}`);
-        yield put ({type: 'SET_MOVIE_DETAILS', payload: movieDetails.data})
+        const movieDetails = yield axios.get(`/api/genre/detail/${movieId.payload}`);
+        yield put ({type: 'SET_GENRES', payload: movieDetails.data})
     } catch (error) {
         console.log('Unable to retrieve movie details:', error);
     }
