@@ -19,10 +19,10 @@ function* rootSaga() {
 
 
 // this will retrieve and set dat from the database
-function* fetchMvDetails(movieId) {
+function* fetchMvDetails(movie) {
     try {
-        const movieDetails = yield axios.get(`/api/genre/detail/${movieId.payload}`);
-        yield put ({type: 'SET_GENRES', payload: movieDetails.data})
+        const movieDetails = yield axios.get(`/api/movie/detail/${movie.payload}`);
+        yield put ({type: 'SET_MOVIE_DETAIL', payload: movieDetails.data})
     } catch (error) {
         console.log('Unable to retrieve movie details:', error);
     }
@@ -54,8 +54,17 @@ const movies = (state = [], action) => {
     }
 }
 
+const movieDetails = (state = [], action) => {
+    switch (action.type) {
+        case 'SET_MOVIE_DETAIL':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
 // Used to store the movie genres
-const genres = (state = [], action) => {
+const genresCategories = (state = [], action) => {
     switch (action.type) {
         case 'SET_GENRES':
             return action.payload;
@@ -68,7 +77,7 @@ const genres = (state = [], action) => {
 const storeInstance = createStore(
     combineReducers({
         movies,
-        genres,
+        genresCategories,
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),

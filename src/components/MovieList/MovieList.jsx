@@ -7,14 +7,14 @@ function MovieList() {
 
     const history = useHistory();
     const dispatch = useDispatch();
-    const movies = useSelector(store => store.movies);
+    const allMovies = useSelector(store => store.movies);
 
     useEffect(() => {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
 
-    const handleDetailClick = (movieId) => {
-        dispatch({type: 'GET_MV_DETAILS', payload: movieId})
+    const handleDetailClick = (movie) => {
+        dispatch({type: 'GET_MV_DETAILS', payload: movie})
         history.push(`/details`);
     }
 
@@ -22,7 +22,7 @@ function MovieList() {
         <main>
             <h1>MovieList</h1>
             <section className="movies">
-                {movies.map(movie => {
+                {allMovies.map(movie => {
                     return (
                         <div key={movie.id} >
                             <h3>{movie.title}</h3>
