@@ -13,8 +13,9 @@ function MovieList() {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
 
-    const handleDetailClick = () => {
-        history.push('/details');
+    const handleDetailClick = (movieId) => {
+        dispatch({type: 'GET_MV_DETAILS', payload: movieId})
+        history.push(`/details`);
     }
 
     return (
