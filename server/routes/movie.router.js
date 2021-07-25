@@ -16,18 +16,18 @@ router.get('/', (req, res) => {
 
 });
 
-router.get('/:id', (req, res) => {
+router.get('/details/:id', (req, res) => {
   const movieId = req.params.id;
-  const queryText =
-    `SELECT title, description, genres.name
-    FROM genres JOIN movies_genres 
-    ON genres.id = movies_genres.genre_id 
-    JOIN movies 
-    ON movies.id = movies_genres.movie_id 
-    WHERE movies.id = $1;`;
   console.log('Inside router get for retrieving movie detail:', movieId);
+  const queryText =
+    `SELECT title, description, poster, genres.name
+    FROM movies
+    JOIN movies_genres on movies_genres.movie_id = movies.id
+    JOIN genres ON genres.id = movies_genres.genre_id
+    WHERE movies.id = $1;`;
   pool.query(queryText, [movieId])
   .then(dbResponse => {
+    console.log(dbResponse.rows);
     res.send(dbResponse.rows);
   })
   .catch(error => {

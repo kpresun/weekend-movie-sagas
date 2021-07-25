@@ -19,10 +19,11 @@ function* rootSaga() {
 
 
 // this will retrieve and set dat from the database
-function* fetchMvDetails(movie) {
+function* fetchMvDetails(action) {
     try {
-        const movieDetails = yield axios.get(`/api/movie/detail/${movie.payload}`);
-        yield put ({type: 'SET_MOVIE_DETAIL', payload: movieDetails.data})
+        const movieDetails = yield axios.get(`/api/movie/details/${action.payload}`);
+        console.log(movieDetails.data);
+        yield put ({type: 'SET_MOVIE_DETAIL', payload: movieDetails.data});
     } catch (error) {
         console.log('Unable to retrieve movie details:', error);
     }
@@ -64,7 +65,7 @@ const movieDetails = (state = [], action) => {
 }
 
 // Used to store the movie genres
-const genresCategories = (state = [], action) => {
+const genresCategories = (state = 0, action) => {
     switch (action.type) {
         case 'SET_GENRES':
             return action.payload;

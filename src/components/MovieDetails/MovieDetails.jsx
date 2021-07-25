@@ -1,17 +1,19 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 function MovieDetails() {
 
-const movie = useSelector(store => store.movies);
-const mvDetails = useSelector(store => store.genres);
+const dispatch = useDispatch();
+const history = useHistory();
+
+const mvDetails = useSelector(store => store.MovieDetails);
 
     return (
         <div>
-            <p>This should show details, page to be deleted</p>
-            <p>{mvDetails.title}</p>
-            <p>{mvDetails.description}</p>
-            <p>{mvDetails.genres.name}</p>
+            <h1>{mvDetails && mvDetails[0].title}</h1>
+            <img src={mvDetails && mvDetails[0].poster}></img>
+            <p>{mvDetails && mvDetails[0].description}</p>
         </div>
     )
 }
