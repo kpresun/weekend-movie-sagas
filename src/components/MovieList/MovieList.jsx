@@ -13,9 +13,10 @@ function MovieList() {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
 
-    const handleDetailClick = (mvDetails) => {
-        dispatch({type: 'GET_MV_DETAILS', payload: mvDetails.id})
-        history.push(`/details/${mvDetails.id}`);
+    const handleDetailClick = (movieId) => {
+        console.log(movieId);
+        dispatch({type: 'GET_MV_DETAILS', payload: movieId})
+        history.push(`/details/${movieId}`);
     }
 
     return (
@@ -26,11 +27,13 @@ function MovieList() {
                     return (
                         <div key={movie.id} >
                             <h3>{movie.title}</h3>
+                            <h3>{movie.id}</h3>
+                            <h3>{movie.description}</h3>
                             <img src={movie.poster} alt={movie.title}
-                            onClick={handleDetailClick}/>
-                            <p><button onClick={() =>handleDetailClick(movie)}>
+                            onClick={() => {handleDetailClick(movie.id)}}/>
+                            {/* <p><button onClick={() =>handleDetailClick(movie)}>
                                 More Detail
-                            </button></p>
+                            </button></p> */}
                         </div>
                     );
                 })}
