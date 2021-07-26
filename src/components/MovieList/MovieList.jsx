@@ -27,13 +27,8 @@ function MovieList() {
                     return (
                         <div key={movie.id} >
                             <h3>{movie.title}</h3>
-                            <h3>{movie.id}</h3>
-                            <h3>{movie.description}</h3>
                             <img src={movie.poster} alt={movie.title}
                             onClick={() => {handleDetailClick(movie.id)}}/>
-                            {/* <p><button onClick={() =>handleDetailClick(movie)}>
-                                More Detail
-                            </button></p> */}
                         </div>
                     );
                 })}
@@ -44,3 +39,7 @@ function MovieList() {
 }
 
 export default MovieList;
+
+
+{/* <h3>{movie.id}</h3>
+<h3>{movie.description}</h3> */}
