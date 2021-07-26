@@ -17,6 +17,14 @@ function* rootSaga() {
     yield takeEvery('GET_MV_DETAILS', fetchMvDetails);
 }
 
+const startingmovie = [
+    {
+        title: 'movie',
+        poster: 'https://ctl.s6img.com/society6/img/OuV9pQpP2aNiZMyN7Rl9TEYXL8c/w_700/prints/~artwork/s6-0010/a/2834749_12116983/~~/2001-a-space-odyssey-movie-poster-prints.jpg',
+        name: 'sci-fi',
+        description: 'space traveling'
+    }
+]
 
 // this will retrieve and set dat from the database
 function* fetchMvDetails(action) {
@@ -55,7 +63,7 @@ const movies = (state = [], action) => {
     }
 }
 
-const movieDetails = (state = [], action) => {
+const movieDetails = (state = startingmovie, action) => {
     switch (action.type) {
         case 'SET_MOVIE_DETAIL':
             return action.payload;
@@ -78,6 +86,7 @@ const genresCategories = (state = 0, action) => {
 const storeInstance = createStore(
     combineReducers({
         movies,
+        movieDetails,
         genresCategories,
     }),
     // Add sagaMiddleware to our store

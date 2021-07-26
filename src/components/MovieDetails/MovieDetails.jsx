@@ -4,16 +4,26 @@ import { useHistory } from 'react-router-dom';
 
 function MovieDetails() {
 
-const dispatch = useDispatch();
 const history = useHistory();
+const mvDetails = useSelector(store => store.movieDetails);
 
-const mvDetails = useSelector(store => store.MovieDetails);
+const backToListClick = (event) => {
+    event.preventDefault();
+    history.push('/');
+}
 
     return (
         <div>
             <h1>{mvDetails && mvDetails[0].title}</h1>
             <img src={mvDetails && mvDetails[0].poster}></img>
             <p>{mvDetails && mvDetails[0].description}</p>
+            {mvDetails && 
+            mvDetails.map((details, index) => {
+                return (
+                    <p key={index}>{details.name}</p>
+                )
+            })}
+            <button onClick={backToListClick}>Back to Movie List</button>
         </div>
     )
 }
