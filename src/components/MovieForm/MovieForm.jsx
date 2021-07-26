@@ -7,7 +7,9 @@ function MovieForm() {
   const dispatch = useDispatch();
   const genres = useSelector((store) => store.genresCategories);
   const history = useHistory();
-  const [newMovie, setNewMovie] = useState([]);
+  const [title, setTitle] = useState('');
+  const [poster, setPoster] = useState('');
+  const [description, setDescription] = useState('');
 
 // runs first to make sure we actually have the genres for the form
   useEffect(() => {
@@ -26,12 +28,24 @@ function MovieForm() {
     history.push("/");
   };
 
+const addNewMovie = () => {
+    const movieToAdd = {
+        title,
+        poster,
+        description
+    }
+    dispatch({ type:'ADD_MOVIE', payload: movieToAdd});
+    setTitle('');
+    setPoster('');
+    setDescription('');
+}
+
   return (
     <div>
-      <form>
-        <input type="text" placeholder="Add Movie title"></input>
-        <input type="text" placeholder="URL Image"></input>
-        <input type="text" placeholder="Description"></input>
+      <form onSubmit={addNewMovie}>
+        <input type="text" placeholder="Add Movie title" value={title} onChange={event => setTitle(event.targe.value) } required />
+        <input type="text" placeholder="URL Image" value={poster} onChange={event => setPoster(event.target.value) } required/>
+        <input type="text" placeholder="Description" value={description} onChange={event => setDescription(event.target.value)} required/>
         <select name="genre" id="genreNames">
             {genres.map((genre, index) => {
                 return (
@@ -40,7 +54,7 @@ function MovieForm() {
             })}
         </select>
         <div>
-            <button>Add Movie</button>
+            <button type='submit'>Add Movie</button>
             <button onClick={cancelAddClick}>cancel</button>
         </div>
       </form>
