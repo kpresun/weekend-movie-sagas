@@ -44,13 +44,13 @@ const addNewMovie = () => {
   return (
     <div>
       <form onSubmit={addNewMovie}>
-        <input type="text" placeholder="Movie title" value={title} onChange={event => setTitle(event.targe.value) } required />
+        <input type="text" placeholder="Movie title" value={title} onChange={event => setTitle(event.target.value) } required />
         <input type="text" placeholder="Image URL" value={poster} onChange={event => setPoster(event.target.value) } required/>
         <input type="text" placeholder="Movie Description" value={description} onChange={event => setDescription(event.target.value)} required/>
         <select>
-            {genres.map((genre, index) => {
+            {genres.map(genre => {
                 return (
-                        <option key={index} value={genre.name}>{genre.name}</option>
+                        <option key={genre.id} value={genre.id}>{genre.name}</option>
                 )
             })}
         </select>
