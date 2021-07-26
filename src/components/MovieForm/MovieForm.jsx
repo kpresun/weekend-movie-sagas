@@ -7,6 +7,7 @@ function MovieForm() {
   const dispatch = useDispatch();
   const genres = useSelector((store) => store.genresCategories);
   const history = useHistory();
+  // local storage for movie data
   const [title, setTitle] = useState('');
   const [poster, setPoster] = useState('');
   const [description, setDescription] = useState('');
@@ -43,13 +44,13 @@ const addNewMovie = () => {
   return (
     <div>
       <form onSubmit={addNewMovie}>
-        <input type="text" placeholder="Add Movie title" value={title} onChange={event => setTitle(event.targe.value) } required />
-        <input type="text" placeholder="URL Image" value={poster} onChange={event => setPoster(event.target.value) } required/>
-        <input type="text" placeholder="Description" value={description} onChange={event => setDescription(event.target.value)} required/>
-        <select name="genre" id="genreNames">
+        <input type="text" placeholder="Movie title" value={title} onChange={event => setTitle(event.targe.value) } required />
+        <input type="text" placeholder="Image URL" value={poster} onChange={event => setPoster(event.target.value) } required/>
+        <input type="text" placeholder="Movie Description" value={description} onChange={event => setDescription(event.target.value)} required/>
+        <select>
             {genres.map((genre, index) => {
                 return (
-                        <option key={index} value={genre.name}>{genre.id}</option>
+                        <option key={index} value={genre.name}>{genre.name}</option>
                 )
             })}
         </select>
