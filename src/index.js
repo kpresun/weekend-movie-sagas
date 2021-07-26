@@ -15,9 +15,10 @@ import axios from 'axios';
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
     yield takeEvery('GET_MV_DETAILS', fetchMvDetails);
+    yield takeEvery('GET_GENRES', fetchGenres);
 }
 
-const startingmovie = [
+const startingMovie = [
     {
         title: 'movie',
         poster: 'https://ctl.s6img.com/society6/img/OuV9pQpP2aNiZMyN7Rl9TEYXL8c/w_700/prints/~artwork/s6-0010/a/2834749_12116983/~~/2001-a-space-odyssey-movie-poster-prints.jpg',
@@ -25,6 +26,20 @@ const startingmovie = [
         description: 'space traveling'
     }
 ]
+
+// this will retrieve all movies from the database
+function* fetchAllMovies() {
+    // get all movies from the DB
+    try {
+        const movies = yield axios.get('/api/movie');
+        console.log('get all:', movies.data);
+        yield put({ type: 'SET_MOVIES', payload: movies.data });
+
+    } catch {
+        console.log('get all error');
+    }
+        
+}
 
 // this will retrieve and set dat from the database
 function* fetchMvDetails(action) {
@@ -37,17 +52,14 @@ function* fetchMvDetails(action) {
     }
 }
 
-function* fetchAllMovies() {
-    // get all movies from the DB
+function* fetchGenres(action) {
     try {
-        const movies = yield axios.get('/api/movie');
-        console.log('get all:', movies.data);
-        yield put({ type: 'SET_MOVIES', payload: movies.data });
-
+        const genres = yield axios.get('/api/genre');
+        console.log('inside fetchGenres', genres.data);
+        yield put({ type: 'SET_GENRE', payload: genres.data});
     } catch {
-        console.log('get all error');
+        console.log('unable to retrieve genres');
     }
-        
 }
 
 // Create sagaMiddleware
@@ -63,7 +75,7 @@ const movies = (state = [], action) => {
     }
 }
 
-const movieDetails = (state = startingmovie, action) => {
+const movieDetails = (state = startingMovie, action) => {
     switch (action.type) {
         case 'SET_MOVIE_DETAIL':
             return action.payload;
@@ -73,7 +85,7 @@ const movieDetails = (state = startingmovie, action) => {
 }
 
 // Used to store the movie genres
-const genresCategories = (state = 0, action) => {
+const genresCategories = (state = [], action) => {
     switch (action.type) {
         case 'SET_GENRES':
             return action.payload;
