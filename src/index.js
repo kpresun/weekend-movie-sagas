@@ -56,8 +56,8 @@ function* fetchMvDetails(action) {
 function* fetchGenres(action) {
     try {
         const genres = yield axios.get('/api/genre');
-        console.log('inside fetchGenres', genres.data);
-        yield put({ type: 'SET_GENRE', payload: genres.data});
+        console.log('inside fetch Genres', genres.data);
+        yield put({ type: 'SET_GENRES', payload: genres.data});
     } catch {
         console.log('unable to retrieve genres');
     }
