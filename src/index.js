@@ -34,7 +34,7 @@ function* fetchAllMovies() {
     try {
         const movies = yield axios.get('/api/movie');
         console.log('get all:', movies.data);
-        yield put({ type: 'SET_MOVIES', payload: movies.data });
+        yield put({ type: 'GET_MOVIES', payload: movies.data });
 
     } catch {
         console.log('get all error');
@@ -65,8 +65,8 @@ function* fetchGenres(action) {
 
 function* addNewMovie(movie) {
     try {
-        yield call(axios.post, '/api.movie', movie.payload);
-        yield put({ type: SET_NEW_MOVIE});
+        yield call(axios.post, '/api/movie', movie.payload);
+        yield put({ type: 'GET_MOVIE'});
     } catch (error) {
         console.log('unable to post new movie,', error);
     }
@@ -78,7 +78,7 @@ const sagaMiddleware = createSagaMiddleware();
 // Used to store movies returned from the server
 const movies = (state = [], action) => {
     switch (action.type) {
-        case 'SET_MOVIES':
+        case 'GET_MOVIES':
             return action.payload;
         default:
             return state;

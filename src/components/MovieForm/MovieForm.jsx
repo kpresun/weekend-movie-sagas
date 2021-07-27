@@ -11,6 +11,7 @@ function MovieForm() {
   const [title, setTitle] = useState('');
   const [poster, setPoster] = useState('');
   const [description, setDescription] = useState('');
+  const [newGenre, setNewGenre] = useState('');
 
 // runs first to make sure we actually have the genres for the form
   useEffect(() => {
@@ -30,10 +31,12 @@ function MovieForm() {
   };
 
 const addNewMovie = () => {
+  console.log('-------what is:', newGenre);
     const movieToAdd = {
         title,
         poster,
-        description
+        description,
+        genre_id: newGenre
     }
     dispatch({ type:'ADD_MOVIE', payload: movieToAdd});
     setTitle('');
@@ -46,11 +49,11 @@ const addNewMovie = () => {
       <form onSubmit={addNewMovie}>
         <input type="text" placeholder="Movie title" value={title} onChange={event => setTitle(event.target.value) } required />
         <input type="text" placeholder="Image URL" value={poster} onChange={event => setPoster(event.target.value) } required/>
-        <input type="text" placeholder="Movie Description" value={description} onChange={event => setDescription(event.target.value)} required/>
+        <input type="text" placeholder="Movie Description" value={description} onChange={event => setDescription(event.target.value) } required/>
         <select>
             {genres.map(genre => {
                 return (
-                        <option key={genre.id} value={genre.id}>{genre.name}</option>
+                        <option key={genre.id} value={genre.id} onChange={event => setNewGenre({genre_id: Number(event.target.value)}) } >{genre.name}</option>
                 )
             })}
         </select>
