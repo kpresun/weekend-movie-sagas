@@ -50,10 +50,10 @@ const addNewMovie = () => {
         <input type="text" placeholder="Movie title" value={title} onChange={event => setTitle(event.target.value) } required />
         <input type="text" placeholder="Image URL" value={poster} onChange={event => setPoster(event.target.value) } required/>
         <input type="text" placeholder="Movie Description" value={description} onChange={event => setDescription(event.target.value) } required/>
-        <select>
+        <select onChange={event => setNewGenre(event.target.value)}>
             {genres.map(genre => {
                 return (
-                        <option key={genre.id} value={genre.id} onChange={event => setNewGenre({genre_id: Number(event.target.value)}) } >{genre.name}</option>
+                        <option key={genre.id} value={genre.id}>{genre.name}</option>
                 )
             })}
         </select>
